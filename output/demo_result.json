@@ -1,0 +1,66 @@
+{
+  "applicant_id": "DEMO_001",
+  "default_probability": 0.8102187514305115,
+  "risk_grade": "E",
+  "risk_factors": [
+    {
+      "feature": "checking_status_no checking",
+      "value": 0.0,
+      "shap_value": 0.6042572259902954,
+      "impact": "increases risk",
+      "abs_impact": 0.6042572259902954
+    },
+    {
+      "feature": "duration",
+      "value": 0.2671812075656466,
+      "shap_value": 0.46581342816352844,
+      "impact": "increases risk",
+      "abs_impact": 0.46581342816352844
+    },
+    {
+      "feature": "checking_status_<0",
+      "value": 1.0,
+      "shap_value": 0.3817172348499298,
+      "impact": "increases risk",
+      "abs_impact": 0.3817172348499298
+    },
+    {
+      "feature": "savings_status_<100",
+      "value": 1.0,
+      "shap_value": 0.3332485556602478,
+      "impact": "increases risk",
+      "abs_impact": 0.3332485556602478
+    },
+    {
+      "feature": "credit_history_critical/other existing credit",
+      "value": 0.0,
+      "shap_value": 0.17139321565628052,
+      "impact": "increases risk",
+      "abs_impact": 0.17139321565628052
+    }
+  ],
+  "protective_factors": [
+    {
+      "feature": "employment_4<=X<7",
+      "value": 1.0,
+      "shap_value": -0.41949036717414856,
+      "impact": "decreases risk",
+      "abs_impact": 0.41949036717414856
+    },
+    {
+      "feature": "property_magnitude_real estate",
+      "value": 1.0,
+      "shap_value": -0.22902601957321167,
+      "impact": "decreases risk",
+      "abs_impact": 0.22902601957321167
+    },
+    {
+      "feature": "age",
+      "value": -0.04943567907450828,
+      "shap_value": -0.18896305561065674,
+      "impact": "decreases risk",
+      "abs_impact": 0.18896305561065674
+    }
+  ],
+  "llm_prompt": "You are a senior credit risk analyst. Write a concise, professional credit risk assessment.\n\nApplicant ID: DEMO_001\nPredicted Default Probability: 81.02%\nRisk Grade: E\n\nApplicant Summary:\n  checking_status: <0\n  duration: 24\n  credit_history: existing paid\n  purpose: furniture/equipment\n  credit_amount: 5000\n  savings_status: <100\n  employment: 4<=X<7\n  installment_commitment: 3\n  personal_status: male single\n  other_parties: none\n  residence_since: 3\n  property_magnitude: real estate\n  age: 35\n  other_payment_plans: none\n  housing: own\n  existing_credits: 1\n  job: skilled\n  num_dependents: 1\n  own_telephone: yes\n  foreign_worker: yes\n\nKey Risk Factors:\n  - checking_status_no checking: 0.0000 (increases risk)\n  - duration: 0.2672 (increases risk)\n  - checking_status_<0: 1.0000 (increases risk)\n  - savings_status_<100: 1.0000 (increases risk)\n  - credit_history_critical/other existing credit: 0.0000 (increases risk)\n\nKey Protective Factors:\n  - employment_4<=X<7: 1.0000 (decreases risk)\n  - property_magnitude_real estate: 1.0000 (decreases risk)\n  - age: -0.0494 (decreases risk)\n\nInstructions:\n- Write 2-3 paragraphs in professional banking language.\n- Explain WHY the risk factors matter in plain language.\n- Mention any mitigating strengths.\n- Do NOT make a final approve/reject recommendation; only assess risk.\n- Keep it under 200 words.\n"
+}
