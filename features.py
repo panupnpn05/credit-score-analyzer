@@ -46,8 +46,10 @@ def prepare_pipeline(X_train: pd.DataFrame, save_path: Optional[str] = None):
     preprocessor.fit(X_train)
 
     feature_names = numeric_cols.copy()
-    cat_encoder = preprocessor.named_transformers_["cat"].named_steps["onehot"]
-    cat_features = cat_encoder.get_feature_names_out(categorical_cols)
+    cat_features = []
+    if categorical_cols:  # all-numeric datasets have no one-hot columns
+        cat_encoder = preprocessor.named_transformers_["cat"].named_steps["onehot"]
+        cat_features = list(cat_encoder.get_feature_names_out(categorical_cols))
     feature_names.extend(cat_features)
 
     if save_path:

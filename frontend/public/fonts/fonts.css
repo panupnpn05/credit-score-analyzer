@@ -1,0 +1,19 @@
+/* Bundled locally — the app runs offline (Docker/local demo). Sources:
+   Archivo & JetBrains Mono, SIL Open Font License, served by Google Fonts
+   as variable fonts. Files live beside this stylesheet. */
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./Archivo-var.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('./JetBrainsMono-var.woff2') format('woff2');
+}

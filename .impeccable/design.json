@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-06T00:00:00Z",
+  "title": "Design System: AI Credit Scoring System",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Desk Paper", "canonical": "oklch(95.2% 0.011 89.7)", "tonalRamp": ["#0d0b06", "#24211c", "#3f3d37", "#605d57", "#838079", "#a7a49d", "#cdcac3", "#f1eee6"] },
+      "paper-deep": { "role": "neutral", "displayName": "Rail Paper", "canonical": "oklch(91.9% 0.018 89.4)", "tonalRamp": ["#0e0b04", "#252118", "#413d33", "#625d52", "#848074", "#a9a498", "#cfcabe", "#f3eee1"] },
+      "sheet": { "role": "neutral", "displayName": "Open Sheet", "canonical": "oklch(99.0% 0.007 97.3)", "tonalRamp": ["#0c0b08", "#22221e", "#3e3d39", "#5f5e59", "#81807c", "#a6a5a0", "#cccbc5", "#f0efe9"] },
+      "ink": { "role": "neutral", "displayName": "Iron-Gall Ink", "canonical": "oklch(27.9% 0.023 243.4)", "tonalRamp": ["#040c14", "#18232c", "#333f48", "#535f6a", "#75828d", "#99a7b2", "#becdd9", "#e2f1fd"] },
+      "ink-soft": { "role": "neutral", "displayName": "Soft Ink", "canonical": "oklch(47.5% 0.029 237.4)", "tonalRamp": ["#010d16", "#14242e", "#2f404b", "#4f606c", "#718390", "#94a8b5", "#bacedb", "#ddf2ff"] },
+      "ink-faint": { "role": "neutral", "displayName": "Faint Ink", "canonical": "oklch(53.5% 0.026 233.8)", "tonalRamp": ["#020d14", "#15242c", "#304049", "#50606a", "#72838e", "#95a8b3", "#bbced9", "#def2fe"] },
+      "rule": { "role": "neutral", "displayName": "Hairline Rule", "canonical": "oklch(87.0% 0.008 177.3)", "tonalRamp": ["#080c0b", "#1e2321", "#393f3d", "#595f5d", "#7b8280", "#a0a6a4", "#c5ccca", "#e9f0ee"] },
+      "rule-strong": { "role": "neutral", "displayName": "Drawn Rule", "canonical": "oklch(75.3% 0.016 207.1)", "tonalRamp": ["#040d0f", "#192426", "#344041", "#546062", "#768385", "#9aa8aa", "#bfced0", "#e3f2f4"] },
+      "graph": { "role": "secondary", "displayName": "Graph Blue", "canonical": "oklch(56.8% 0.060 248.9)", "tonalRamp": ["#000b23", "#05233d", "#223f5b", "#42617e", "#6484a3", "#88a8c9", "#adcff1", "#d0f3ff"] },
+      "graph-deep": { "role": "secondary", "displayName": "Deep Graph Blue", "canonical": "oklch(47.8% 0.053 248.0)", "tonalRamp": ["#000b20", "#09233a", "#263f58", "#45607a", "#67839f", "#8ba8c5", "#b0ceec", "#d3f3ff"] },
+      "graph-soft": { "role": "secondary", "displayName": "Graph Tint", "canonical": "oklch(91.5% 0.011 243.7)", "tonalRamp": ["#070c10", "#1d2227", "#383e43", "#595e63", "#7b8186", "#9fa5ab", "#c5cbd1", "#e8eff5"] },
+      "slab": { "role": "neutral", "displayName": "Iron-Gall Slab", "canonical": "oklch(26.3% 0.021 242.7)", "tonalRamp": ["#040c13", "#19232b", "#343f47", "#545f69", "#76828c", "#9aa6b1", "#bfcdd7", "#e3f1fc"] },
+      "stamp": { "role": "primary", "displayName": "Vermilion Stamp", "canonical": "oklch(54.7% 0.170 34.8)", "tonalRamp": ["#380000", "#5a0000", "#7f0000", "#a82700", "#d25031", "#fc7757", "#ff9e7c", "#ffc29f"] },
+      "stamp-deep": { "role": "primary", "displayName": "Deep Vermilion", "canonical": "oklch(47.6% 0.147 34.9)", "tonalRamp": ["#330000", "#540000", "#770500", "#9f341a", "#c85a3f", "#f27f63", "#ffa588", "#ffc9ab"] },
+      "stamp-soft": { "role": "primary", "displayName": "Stamp Tint", "canonical": "oklch(94.3% 0.020 53.3)", "tonalRamp": ["#120904", "#291f19", "#463a33", "#675b53", "#8a7d75", "#afa299", "#d6c7bf", "#faebe2"] },
+      "ok": { "role": "tertiary", "displayName": "Ledger Green", "canonical": "oklch(47.7% 0.088 154.5)", "tonalRamp": ["#001400", "#002d0c", "#034a27", "#2f6c47", "#539068", "#77b58c", "#9ddcb1", "#c0ffd4"] },
+      "ok-soft": { "role": "tertiary", "displayName": "Ledger Green Tint", "canonical": "oklch(94.4% 0.014 145.5)", "tonalRamp": ["#080d08", "#1e231e", "#393f39", "#596059", "#7b837b", "#9fa79f", "#c5cdc5", "#e9f1e9"] },
+      "warn": { "role": "tertiary", "displayName": "Ochre", "canonical": "oklch(53.5% 0.109 78.4)", "tonalRamp": ["#210000", "#3c1500", "#5b3300", "#7e5400", "#a37727", "#ca9c4f", "#f1c276", "#ffe699"] },
+      "warn-soft": { "role": "tertiary", "displayName": "Ochre Tint", "canonical": "oklch(94.3% 0.027 90.9)", "tonalRamp": ["#0f0b01", "#262112", "#423d2d", "#635d4c", "#86806e", "#aba492", "#d1cab7", "#f5eedb"] },
+      "bad": { "role": "tertiary", "displayName": "Deep Red", "canonical": "oklch(51.6% 0.159 34.5)", "tonalRamp": ["#360000", "#570000", "#7b0000", "#a42e10", "#cd5539", "#f77b5d", "#ffa182", "#ffc5a5"] },
+      "bad-soft": { "role": "tertiary", "displayName": "Deep Red Tint", "canonical": "oklch(93.7% 0.020 53.2)", "tonalRamp": ["#120904", "#291f19", "#463a33", "#675b53", "#8a7d75", "#afa199", "#d6c7bf", "#faebe2"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Page-hero scale; the logbook's largest Archivo setting." },
+      "verdict": { "displayName": "Verdict", "purpose": "The monumental probability readout in the verdict block; tabular numerals." },
+      "headline": { "displayName": "Headline", "purpose": "Page-level h1 titles." },
+      "title": { "displayName": "Title", "purpose": "Uppercase section titles, memo heads, brand name; Archivo 800." },
+      "body": { "displayName": "Body", "purpose": "Forms and prose at 0.9375rem / 1.55." },
+      "label": { "displayName": "Label", "purpose": "Mono uppercase micro-labels: field labels, table headers, verdict labels." },
+      "entry": { "displayName": "Entry", "purpose": "THE LOG record face and small mono readouts." }
+    },
+    "shadows": [
+      { "name": "sheet", "value": "0 1px 2px rgba(31, 42, 51, 0.10), 0 16px 40px -18px rgba(31, 42, 51, 0.28)", "purpose": "The only soft elevation: the open sheet and the memo sheet." },
+      { "name": "press", "value": "1.5px 1.5px 0 rgba(31, 42, 51, 0.35)", "purpose": "Hard letterpress offset on the primary button; hover grows to 2.5px." },
+      { "name": "press-sm", "value": "1px 1px 0 rgba(31, 42, 51, 0.35)", "purpose": "Brand mark and small result boxes." },
+      { "name": "focus-ring", "value": "0 0 0 2px var(--sheet), 0 0 0 4px var(--stamp)", "purpose": "Focus-visible treatment on buttons, inputs, and what-if fields." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "The single easing curve for all transitions and keyframes." },
+      { "name": "dur-fast", "value": "140ms", "purpose": "Hover and tab transitions." },
+      { "name": "dur-med", "value": "220ms", "purpose": "Button background/shadow transitions, saved-note entry." },
+      { "name": "dur-entry", "value": "420ms", "purpose": "Content entry-in (translateY 10px + fade), factor rows." },
+      { "name": "stamp-in", "value": "380ms cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "The press: stamps and fresh log entries scale 1.35→0.97→1 with rotation overshoot to -1.2deg." },
+      { "name": "ruler-fill", "value": "600ms cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Ruler gauge fill scaleX on update." },
+      { "name": "reduced-motion", "value": "@media (prefers-reduced-motion: reduce) — all animation/transition durations collapse to 0.01ms", "purpose": "Mandatory accessibility override shipped in styles.css." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "960px", "purpose": "Book collapses to one column; tabs become a horizontal scroll row; log caps at 220px; verdict side wraps below." }
+    ],
+    "layout": {
+      "max-width": "1460px",
+      "rail-width": "264px",
+      "book": "grid: 264px rail + 1fr sheet",
+      "page-grid": "minmax(300px, 5fr) / minmax(0, 8fr), gap 1.5rem 2.25rem",
+      "form-grid": "repeat(auto-fill, minmax(190px, 1fr))",
+      "z-index": { "sticky-nav": 100, "overlay": 200, "modal": 300, "toast": 500 }
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one filled action on a folio — vermilion with a hard press shadow.",
+      "html": "<button class=\"ds-btn-primary\">RUN SCORING</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border: none; border-radius: 2px; background: var(--stamp, #bf3f1f); color: var(--sheet, #fdfcf7); font-family: 'Archivo', sans-serif; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.03em; cursor: pointer; box-shadow: 1.5px 1.5px 0 rgba(31, 42, 51, 0.35); transition: background 220ms cubic-bezier(0.22,1,0.36,1), box-shadow 220ms cubic-bezier(0.22,1,0.36,1), transform 140ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-primary:hover:not(:disabled) { background: var(--stamp-deep, #9e3318); box-shadow: 2.5px 2.5px 0 rgba(31, 42, 51, 0.35); } .ds-btn-primary:active { transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--sheet, #fdfcf7), 0 0 0 4px var(--stamp, #bf3f1f); } .ds-btn-primary:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action on paper: ruled outline, no fill, ink text.",
+      "html": "<button class=\"ds-btn-ghost\">RESET FIELDS</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border: 1.5px solid var(--rule-strong, #a4b2b4); border-radius: 2px; background: transparent; color: var(--ink, #1f2a33); font-family: 'Archivo', sans-serif; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.03em; cursor: pointer; transition: background 220ms cubic-bezier(0.22,1,0.36,1), transform 140ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-ghost:hover:not(:disabled) { border-color: var(--ink, #1f2a33); background: rgba(31, 42, 51, 0.04); } .ds-btn-ghost:active { transform: translateY(-1px); } .ds-btn-ghost:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--sheet, #fdfcf7), 0 0 0 4px var(--stamp, #bf3f1f); } .ds-btn-ghost:disabled { opacity: 0.45; cursor: not-allowed; }"
+    },
+    {
+      "name": "Stamp",
+      "kind": "chip",
+      "refersTo": "stamp",
+      "description": "The unit of record — a rotated rubber-stamp mark; mounts with the press animation.",
+      "html": "<span class=\"ds-stamp\">MANUAL REVIEW</span>",
+      "css": ".ds-stamp { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border: 1.5px solid currentColor; border-radius: 2px; background: transparent; color: var(--stamp, #bf3f1f); font-family: 'JetBrains Mono', monospace; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; transform: rotate(-1.2deg); animation: ds-stamp-in 380ms cubic-bezier(0.22,1,0.36,1) both; } @keyframes ds-stamp-in { 0% { opacity: 0; transform: scale(1.35) rotate(-4deg); } 60% { opacity: 1; transform: scale(0.97) rotate(-1deg); } 100% { opacity: 1; transform: scale(1) rotate(-1.2deg); } }"
+    },
+    {
+      "name": "Stamp — Ledger Green",
+      "kind": "chip",
+      "refersTo": "stamp-ok",
+      "description": "Grounded / approve tone of the stamp, used for verification and ok states.",
+      "html": "<span class=\"ds-stamp ds-stamp-ok\">APPROVE · GROUNDED</span>",
+      "css": ".ds-stamp { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border: 1.5px solid currentColor; border-radius: 2px; background: transparent; font-family: 'JetBrains Mono', monospace; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; transform: rotate(-1.2deg); } .ds-stamp-ok { color: var(--ok, #2e6b46); }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field-input",
+      "description": "Applicant-form input: white on the sheet, ruled border, vermilion focus ring.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">ANNUAL INCOME</span><input class=\"ds-input\" type=\"number\" placeholder=\"48000\" /></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 4px; } .ds-field-label { font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft, #4d5f6b); line-height: 1.5; } .ds-input { padding: 7px 10px; border: 1px solid var(--rule-strong, #a4b2b4); border-radius: 2px; background: #fff; color: var(--ink, #1f2a33); font-family: 'Archivo', sans-serif; font-size: 0.9375rem; transition: border-color 140ms cubic-bezier(0.22,1,0.36,1), box-shadow 140ms cubic-bezier(0.22,1,0.36,1); } .ds-input:focus { outline: none; border-color: var(--stamp, #bf3f1f); box-shadow: 0 0 0 2px var(--sheet, #fdfcf7), 0 0 0 4px var(--stamp, #bf3f1f); }"
+    },
+    {
+      "name": "Index Tab (Active)",
+      "kind": "nav",
+      "refersTo": "index-tab-active",
+      "description": "Page-edge section tab in the rail; active tab is a cut sheet edge with a vermilion inset bar.",
+      "html": "<a class=\"ds-index-tab ds-index-tab-active\" href=\"#/\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"4\" y=\"2\" width=\"16\" height=\"20\" rx=\"1\"/><line x1=\"8\" y1=\"7\" x2=\"16\" y2=\"7\"/></svg> Predict <span class=\"ds-tab-folio\">01</span></a>",
+      "css": ".ds-index-tab { display: flex; align-items: center; gap: 12px; padding: 9px 12px 9px 18px; text-decoration: none; font-family: 'Archivo', sans-serif; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.02em; border-radius: 2px 0 0 2px; transition: transform 140ms cubic-bezier(0.22,1,0.36,1), background 140ms cubic-bezier(0.22,1,0.36,1), color 140ms cubic-bezier(0.22,1,0.36,1); } .ds-index-tab { color: var(--graph-deep, #45607a); background: rgba(253, 252, 247, 0.55); border: 1px solid var(--rule, #cfd6d4); border-right: none; } .ds-index-tab:hover { background: var(--sheet, #fdfcf7); color: var(--ink, #1f2a33); } .ds-index-tab-active { background: var(--sheet, #fdfcf7); color: var(--ink, #1f2a33); border-color: var(--rule-strong, #a4b2b4); box-shadow: -2px 0 0 var(--stamp, #bf3f1f) inset; } .ds-tab-folio { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; color: var(--stamp, #bf3f1f); }"
+    },
+    {
+      "name": "Nameplate",
+      "kind": "chip",
+      "refersTo": "nameplate",
+      "description": "Mono identifier chip used as a row marker in ruled tables.",
+      "html": "<span class=\"ds-nameplate\">APP-0042</span>",
+      "css": ".ds-nameplate { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; border: 1px solid var(--rule-strong, #a4b2b4); border-radius: 2px; padding: 2px 7px; background: var(--paper, #f2efe7); color: var(--ink, #1f2a33); white-space: nowrap; }"
+    },
+    {
+      "name": "State Pill",
+      "kind": "chip",
+      "refersTo": "stamp",
+      "description": "Semantic outline pill with a paper-sitting tint fill for stable/warning/drift states.",
+      "html": "<span class=\"ds-pill ds-pill-warning\">DRIFT · WARNING</span>",
+      "css": ".ds-pill { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border: 1px solid currentColor; border-radius: 2px; background: transparent; font-family: 'JetBrains Mono', monospace; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; } .ds-pill-success { color: var(--ok, #2e6b46); background: var(--ok-soft, #e7efe7); } .ds-pill-warning { color: var(--warn, #8f6408); background: var(--warn-soft, #f3ecd8); } .ds-pill-danger { color: var(--bad, #b03a1e); background: var(--bad-soft, #f6e7de); }"
+    },
+    {
+      "name": "Log Entry — THE LOG",
+      "kind": "custom",
+      "refersTo": "stamp",
+      "description": "One stamped, initialed, timestamped record row in the session log; fresh rows press in.",
+      "html": "<div class=\"ds-log-entry\"><span class=\"ds-log-time\">14:32:07</span><span class=\"ds-log-text\">Scored applicant — grade B, p(default) 0.18</span><span class=\"ds-log-initials\">PN</span><span class=\"ds-stamp-mark\">MANUAL REVIEW</span></div>",
+      "css": ".ds-log-entry { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; padding: 6px 2px; border-bottom: 1px solid var(--rule, #cfd6d4); font-family: 'JetBrains Mono', monospace; animation: ds-entry-in 420ms cubic-bezier(0.22,1,0.36,1) both; transform-origin: left center; } @keyframes ds-entry-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } } .ds-log-time { grid-column: 1; font-size: 0.625rem; color: var(--ink-faint, #5f707a); padding-top: 2px; white-space: nowrap; } .ds-log-text { grid-column: 2; font-size: 0.75rem; line-height: 1.4; color: var(--ink-soft, #4d5f6b); } .ds-log-initials { grid-column: 1; font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.18em; color: var(--stamp, #bf3f1f); padding-top: 1px; } .ds-stamp-mark { grid-column: 2; justify-self: start; margin-top: 2px; padding: 3px 9px; border: 1.5px solid currentColor; border-radius: 2px; color: var(--warn, #8f6408); font-size: 0.625rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; transform: rotate(-1.2deg); white-space: nowrap; }"
+    },
+    {
+      "name": "Verdict Grade Cell",
+      "kind": "custom",
+      "refersTo": "stamp",
+      "description": "The monumental grade: an 84px rotated square cell with a 3px tone-colored border and press shadow.",
+      "html": "<div class=\"ds-verdict-grade grade-B\">B</div>",
+      "css": ".ds-verdict-grade { display: flex; align-items: center; justify-content: center; width: 84px; height: 84px; border: 3px solid currentColor; border-radius: 2px; font-family: 'Archivo', sans-serif; font-size: 3rem; font-weight: 800; transform: rotate(-2deg); box-shadow: 2px 2px 0 rgba(31, 42, 51, 0.25); font-variant-numeric: tabular-nums; } .ds-verdict-grade.grade-A, .ds-verdict-grade.grade-B { color: var(--ok, #2e6b46); } .ds-verdict-grade.grade-C { color: var(--warn, #8f6408); } .ds-verdict-grade.grade-D, .ds-verdict-grade.grade-E { color: var(--bad, #b03a1e); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Bound Logbook",
+    "overview": "This console is a credit analyst's bound lab logbook. Everything sits on an uncoated paper desk; the working surface is one open sheet, ruled with hairlines instead of carded into panels. Iron-gall ink carries the record; a single vermilion is reserved for stamps, the active decision, and verification marks, so every consequential act reads as an impression pressed into the page. Graph blue draws the structure — page-edge tabs, rules, protective-factor evidence — the way a draftsman's grid sits under the ink.\n\nDensity is that of a working record: compact, ruled, initialed. Type is a bundled variable Archivo for the shell and display set against bundled JetBrains Mono for entries, readouts, numerals, and labels; nothing loads from a network. The signature move is THE LOG — a session-persisted running record in the rail where every action appends a stamped, initialed, timestamped entry with a press animation. The system refuses the neutral card-and-gauge dashboard: nothing appears and vanishes; everything that happened today is on the page, in order, with initials on it.",
+    "keyCharacteristics": [
+      "Paper ground, one open sheet, hairline rules — never floating cards on gray",
+      "Vermilion is a stamp: rare, rotated, pressed — never a fill or a gradient",
+      "Uppercase mono labels, tabular numerals, initialed record entries",
+      "Square-cut corners (2px radius) everywhere; a logbook is not rounded",
+      "One soft sheet shadow plus hard offset \"press\" shadows — no blurred elevation stacks"
+    ],
+    "rules": [
+      { "name": "The Vermilion Is a Stamp Rule", "body": "Vermilion appears only on stamps, the active decision, verification marks, focus rings, slider thumbs, and the primary action — never as a decorative fill, background wash, or gradient.", "section": "colors" },
+      { "name": "The Evidence Color Rule", "body": "Risk-increasing evidence is vermilion (#bf3f1f); protective evidence is graph blue (#5b7a99). This split holds across factor bars, SHAP values, and drift bars.", "section": "colors" },
+      { "name": "The Mono Is the Record Rule", "body": "Anything the system produced — log lines, timestamps, readouts, numerals, table data cells — is JetBrains Mono with tabular numerals. Anything the shell says — titles, labels, buttons — is Archivo.", "section": "typography" },
+      { "name": "The One Voice Rule", "body": "The vermilion accent covers a small fraction of any screen. Its rarity is the point.", "section": "typography" },
+      { "name": "The One Sheet Rule", "body": "Only the sheet (and the memo sheet, a loose page on it) casts a soft shadow. Nothing else floats; elevation is expressed with ink rules and press shadows.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep all web fonts bundled locally (/fonts/fonts.css serving Archivo-var.woff2 and JetBrainsMono-var.woff2) — the app runs offline.",
+      "Do use the 2px radius and the ruled (not carded) section language everywhere.",
+      "Do set every consequential state as a stamped entry with timestamp + operator initials in THE LOG.",
+      "Do use tabular numerals for all readouts, tables, and gauges (mono face does this natively).",
+      "Do keep the educational disclaimer and \"mockup\"/\"demo memo\" honesty badges visible."
+    ],
+    "donts": [
+      "Don't load fonts, icons, or assets from a CDN; Lucide inline SVGs only, no emojis (standing PRODUCT.md commitment).",
+      "Don't add cards, floating panels, or blurred drop shadows — the sheet is the only lifted surface; use ink rules.",
+      "Don't spend vermilion on decorative fills, gradients, or large areas; it is a stamp color.",
+      "Don't introduce corners rounder than 2px; a logbook is square-cut.",
+      "Don't fabricate operator initials, testimonials, benchmarks, or claims; empty states say the record is empty.",
+      "Don't add eyebrow kickers or marketing eyebrows above section titles; section heads are record lines (uppercase title + note over a rule), not campaign copy."
+    ]
+  }
+}

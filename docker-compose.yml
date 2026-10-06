@@ -1,0 +1,36 @@
+# One-command interview demo:
+#   docker compose up --build
+# then open http://localhost:8000
+#
+# The compose stack brings up:
+#   app     - FastAPI + built React UI, with the trained model bundled
+#   ollama  - local LLM server, pulls qwen2.5:7b on first run (~4.7 GB)
+#
+# If Ollama is unreachable, the app degrades gracefully to cached demo memos.
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: qwen2.5:7b
+    depends_on:
+      ollama:
+        condition: service_started
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama_data:/root/.ollama
+    # Pull the model on first start; subsequent starts are instant (cached volume)
+    entrypoint: >
+      sh -c "ollama serve & sleep 8 && ollama pull $${OLLAMA_MODEL:-qwen2.5:7b} && wait"
+    environment:
+      OLLAMA_MODEL: qwen2.5:7b
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

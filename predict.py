@@ -25,28 +25,18 @@ def load_artifacts():
 
 
 def create_demo_applicant():
-    """Create a synthetic applicant (German Credit format)."""
+    """Create a synthetic applicant (Give Me Some Credit format)."""
     return pd.DataFrame([{
-        "checking_status": "<0",
-        "duration": 24,
-        "credit_history": "existing paid",
-        "purpose": "furniture/equipment",
-        "credit_amount": 5000,
-        "savings_status": "<100",
-        "employment": "4<=X<7",
-        "installment_commitment": 3,
-        "personal_status": "male single",
-        "other_parties": "none",
-        "residence_since": 3,
-        "property_magnitude": "real estate",
-        "age": 35,
-        "other_payment_plans": "none",
-        "housing": "own",
-        "existing_credits": 1,
-        "job": "skilled",
-        "num_dependents": 1,
-        "own_telephone": "yes",
-        "foreign_worker": "yes",
+        "RevolvingUtilizationOfUnsecuredLines": 0.77,
+        "age": 45,
+        "NumberOfTime30-59DaysPastDueNotWorse": 2,
+        "DebtRatio": 0.80,
+        "MonthlyIncome": 9120,
+        "NumberOfOpenCreditLinesAndLoans": 13,
+        "NumberOfTimes90DaysLate": 0,
+        "NumberRealEstateLoansOrLines": 6,
+        "NumberOfTime60-89DaysPastDueNotWorse": 0,
+        "NumberOfDependents": 2,
     }])
 
 

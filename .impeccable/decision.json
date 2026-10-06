@@ -1,0 +1,176 @@
+{
+  "title": "Choose the visual world",
+  "question": "The roll assigned The Bound Logbook for the credit scoring console. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Bound Logbook",
+      "kicker": "THE ROLL",
+      "lineage": "engineering lab logbooks — bound research notebooks with ruled entries, date stamps, and initialed sign-offs",
+      "thesis": "Every score becomes a permanent, initialed record entry: the app is the lab notebook of a credit analyst, and every action leaves an entry.",
+      "palette": ["#f7f5f0", "#22303c", "#c84b31", "#5b7a99"],
+      "materials": ["graph-ruled paper", "iron-gall ink", "vermilion stamp", "red pencil"],
+      "viewport": "The Predict screen as today's open page: printed header block (name, date, page), a side rail of colored page-edge tabs (Predict / Batch / SOP / Settings), and the work area as ruled record entries — each model run stamped, timed, initialed.",
+      "signature": "THE LOG — every consequential action (prediction, memo verification, batch score, retrain) is appended as a stamped, initialed, timestamped entry; an applicant's file reads as the sequence of entries that produced it.",
+      "risk": "Executed timidly it reads as a 'paper-themed SaaS'; the stamp / initials / entry ritual must be real interaction, not decoration.",
+      "raised": [
+        {"from": "challenger-japanese-high-density", "raise": "Density courage: evidence modules pack edge to edge under hairline rules — no whitespace inflation."},
+        {"from": "challenger-variable-font-specimen", "raise": "Live binding: every what-if control drives an instantaneous, continuous re-score readout — no submit step."},
+        {"from": "challenger-terminal-yellow-wayfinding", "raise": "One verdict, monumental: the decision band shows exactly one message, with the grade numeral at monumental scale."},
+        {"from": "challenger-cassette-j-card", "raise": "The record balances on one sheet: the credit memo is one self-contained sheet carrying the complete record, printable as-is."},
+        {"from": "challenger-character-goods-catalog", "raise": "Every entry a nameplate: batch rows carry a compact identity plate and a one-line verdict note."}
+      ],
+      "wireframe": [
+        "┌────────────────────────────────────────────────────────────┐",
+        "│ ◉ AI CREDIT SCORING · LAB LOG    today 2026-10-06   pg. 04 │",
+        "├─────────────┬──────────────────────────────────────────────┤",
+        "│ INDEX       │  APPLICANT RECORD — #A-1042        [RUN ✓]   │",
+        "│ ▶ Predict   │ ═══════════════════════════════════════════  │",
+        " │  Batch      │   default prob  12.4%      GRADE  A          │",
+        "│  SOP        │   decision     APPROVE ✓  (mockup)           │",
+        "│  Settings   │ ──────────────────────────────────────────── │",
+        "│             │  14:32  intake form completed ....... pn ✎   │",
+        "│ ● THE LOG   │  14:33  model run · v7 · AUC 0.86 ... pn ✎   │",
+        "│ (running    │  14:35  memo verified · 9/9 claims .. pn ✎   │",
+        "│  record)    │                                              │",
+        "│             │ [ risk factors ▁▃▅▂ ]  [ what-if sliders ⟟⟟ ]│",
+        "└─────────────┴──────────────────────────────────────────────┘"
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "The Audit File",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "audit working papers and double-entry ledgers — tickmarks, reference codes, sign-off initials",
+      "thesis": "The interface is an audit file: every claim is ticked and tied to its evidence; nothing enters the record without a reference.",
+      "palette": ["#f5f0e6", "#232323", "#b33a3a", "#3d5a80"],
+      "materials": ["manila file stock", "blue pencil", "red pencil", "tickmarks"],
+      "viewport": "Predict as working paper WP-01: an evidence index down the rail, ticked and referenced claims in the body (probability tied to model version, SHAP tied to exhibit, memo tied to its verification), and a tickmark legend with initials and date at the foot.",
+      "risk": "The strongest grounded direction for this product — and the one most runs in this category land on; executed timidly it reads as generic enterprise software.",
+      "wireframe": [
+        "┌────────────────────────────────────────────────────────────┐",
+        "│ AUDIT FILE — Credit Scoring   WP-01 · WP-02 · WP-03  ✓ PN  │",
+        "├─────────────┬──────────────────────────────────────────────┤",
+        "│ WP-01       │  PREDICTION WORKING PAPER                    │",
+        "│ ▶ Predict   │  applicant #1042 .................. ✓ A-14   │",
+        "│ WP-02       │  prob 12.4% (model v7) ............ ✓ B-02   │",
+        "│ Batch       │  SHAP factors (exhibit 3) ......... ✓ C-11   │",
+        "│ WP-03 SOP   │  memo claims 9/9 grounded ......... ✓ D-01   │",
+        "│ WP-04       │  SOP manual score 78 → B .......... ✓ E-07   │",
+        "│ Settings    │ ──────────────────────────────────────────── │",
+        "│             │ ✎ tickmark legend    initials: PN   date ✓   │",
+        "└─────────────┴──────────────────────────────────────────────┘"
+      ]
+    },
+    {
+      "id": "challenger-japanese-high-density",
+      "label": "High-Density Evidence Console",
+      "verdict": "competitive",
+      "lineage": "Japanese contemporary high-density web — boxed modules, hairline rules, utility-red tabs",
+      "thesis": "The whole credit picture — probability, SHAP bars, memo status, drift alerts — packs into one hairline-ruled mosaic instead of a scrolling card stack.",
+      "palette": ["#ffffff", "#111111", "#e60012", "#9aa0a6"],
+      "materials": ["hairline borders", "boxed modules", "utility red"],
+      "viewport": "A dense module mosaic: each job (score, factors, memo, log) is a small ruled box with its own tab, packed edge to edge; the decision banner is a red-tabbed module.",
+      "case": "Fuses cleanly as a density play engineers respect; holds audience identification, loses narrowly on first-sight product clarity.",
+      "risk": "At high density, scanability pays the price — one weak hierarchy decision and it becomes noise.",
+      "wireframe": [
+        "┌────────────────────────────────────────────────────────────┐",
+        "│▓logo 予測 | バッチ | SOP | 設定          red-tab modules  │",
+        "├──────┬──────────┬──────────┬───────────────────────────────┤",
+        "││score││ risk ▁▃ ││ memo ◌ ││ LOG · batch · drift ▓▓▓▓▓▓▓▓▓ │",
+        "││12.4%││ prot ▂▁ ││ 9/9 ✓ ││ ───────────────────────────── │",
+        "││ A ✓ ││ what-if ││ demo  ││ entry entry entry entry entry │",
+        "│└─────┘└─────────┘└───────┘└───────────────────────────────┘",
+        "│▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓│",
+        "└────────────────────────────────────────────────────────────┘"
+      ]
+    },
+    {
+      "id": "challenger-variable-font-specimen",
+      "label": "Live-Bound Instrument",
+      "verdict": "competitive",
+      "lineage": "interactive type specimens — axis sliders morphing a grid live, monospace readouts",
+      "thesis": "The what-if simulator becomes the hero: every slider bound live to an instantaneous re-score, the probability readout breathing in step.",
+      "palette": ["#fafafa", "#111111", "#ff4d00", "#666666"],
+      "materials": ["live axis binding", "monospace readouts", "specimen grid"],
+      "viewport": "Predict as an instrument: the score numeral enormous, what-if sliders as labeled axes, and every control mapped continuously to the readout — no submit button anywhere.",
+      "case": "The what-if simulator maps perfectly onto live axis binding; as a whole world it carries less product clarity than the assigned direction.",
+      "risk": "As a whole shell it can thin to one trick; the rest of the app must still read as a product.",
+      "wireframe": [
+        "┌────────────────────────────────────────────────────────────┐",
+        "│  specimen / instrument            [mono readout: 0.124]    │",
+        "│                                                            │",
+        "│                    12.4%                                   │",
+        "│                    A — APPROVE                             │",
+        "│                                                            │",
+        "│  debt_ratio ⟟────●──────────  ──▶ live                     │",
+        "│  income     ────●───────⟟────  ──▶ live                    │",
+        "│  inquiries  ⟟──●─────────────  ──▶ live                    │",
+        "│                                                            │",
+        "│  [ factors exhibit ]            [ memo ◌ streaming ]       │",
+        "└────────────────────────────────────────────────────────────┘"
+      ]
+    },
+    {
+      "id": "challenger-terminal-yellow-wayfinding",
+      "label": "Decision Signage",
+      "verdict": "competitive",
+      "lineage": "airport sign systems — saturated yellow bands, one message per band, monumental numbers, split-flap updates",
+      "thesis": "A credit decision is wayfinding: one yellow band carries the single verdict, the grade numeral is monumental, and score updates flip like a departure board.",
+      "palette": ["#f7c500", "#111111", "#ffffff", "#767676"],
+      "materials": ["signage yellow", "split-flap motion", "humanist sans"],
+      "viewport": "The Predict shell standard and clean; the decision banner is a hung yellow sign band with one message and a monumental grade; re-scoring animates a split-flap transition on the numerals.",
+      "case": "Credit decisions really are wayfinding — the band and the split-flap update are memorable; overall shell is thinner than the assigned direction.",
+      "risk": "A yellow-heavy shell can feel like signage rather than software if the world leaks past the decision band.",
+      "wireframe": [
+        "┌────────────────────────────────────────────────────────────┐",
+        "│  Credit Scoring        Predict · Batch · SOP · Settings    │",
+        "│ ╔════════════════════════════════════════════════════════╗ │",
+        "│ ║  ▶ APPROVE — GRADE A                        12.4%      ║ │",
+        " ║  ║  (mockup decision · model v7)                          ║ │",
+        "│ ╚════════════════════════════════════════════════════════╝ │",
+        "│  [split-flap numerals on re-score]                         │",
+        "│                                                            │",
+        "│  [ applicant form ]  [ SHAP factors ]  [ memo ◌ ]          │",
+        "└────────────────────────────────────────────────────────────┘"
+      ]
+    },
+    {
+      "id": "challenger-cassette-j-card",
+      "label": "Ballpoint Tracklist",
+      "verdict": "declined",
+      "lineage": "hand-lettered cassette j-cards",
+      "palette": ["#ffffff", "#1c3f94", "#c0392b"],
+      "materials": ["ballpoint ink", "lined inlay stock"],
+      "case": "Fuses poorly: hand-lettered whimsy undermines trust in a lending context.",
+      "kept": "The record balances on one sheet — the memo is one self-contained, printable record."
+    },
+    {
+      "id": "challenger-character-goods-catalog",
+      "label": "Ranked Roster",
+      "verdict": "declined",
+      "lineage": "character goods catalogs — pastel grid, name plates, one-line notes",
+      "palette": ["#fdf1f5", "#4a4a4a", "#ff8fb2"],
+      "materials": ["pastel fills", "name plates"],
+      "case": "Fuses poorly: reads as a toy, not a lending tool.",
+      "kept": "Every entry a nameplate — batch rows get a compact identity plate and one-line verdict note."
+    }
+  ],
+  "reroll": {
+    "registers": ["plain", "safer", "bolder"],
+    "pool": "Waiting in the re-roll pool: an orienteering-map direction (course plotted over a fixed risk landscape — strong what-if metaphor, biggest costume risk)."
+  },
+  "buildPath": {
+    "value": "code"
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "What this category ships — a clean fintech risk dashboard — executed impeccably.",
+    "palette": ["#ffffff", "#111827", "#2563eb"],
+    "materials": ["clean grid", "neutral surfaces", "one blue accent"],
+    "viewport": "The arrangement a visitor expects: sidebar, cards, gauge, table — at full craft.",
+    "risk": "Indistinguishable from the competition by design."
+  },
+  "steer": true
+}
