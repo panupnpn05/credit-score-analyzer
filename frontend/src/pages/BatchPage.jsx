@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation, Trans } from 'react-i18next'
 import { Layers, Play, UploadCloud, Activity, RefreshCw } from 'lucide-react'
 import { api } from '../api/client.js'
 import Button from '../components/Button.jsx'
@@ -12,31 +13,29 @@ const DRIFT_STAMPS = { stable: 'ok', warning: 'warn', drift: 'bad' }
 
 const MAX_PSI_DISPLAY = 0.5
 
-function DriftReport({ drift, retraining, onRetrain, retrainMessage }) {
+function DriftReport({ drift, retraining, onRetrain, retrainMessage, t }) {
   if (!drift || drift.overall_status === 'no_data') return null
   const rows = (drift.rows || []).filter((r) => r.psi !== null).slice(0, 6)
   return (
     <section className="sheet-section">
       <div className="section-head">
-        <h2 className="section-title"><Activity size={18} />Drift Monitor — PSI</h2>
-        <Stamp tone={DRIFT_STAMPS[drift.overall_status] || 'warn'}>{drift.overall_status}</Stamp>
+        <h2 className="section-title"><Activity size={18} />{t('batch.driftTitle')}</h2>
+        <Stamp tone={DRIFT_STAMPS[drift.overall_status] || 'warn'}>{t(`driftStatus.${drift.overall_status}`, { defaultValue: drift.overall_status })}</Stamp>
       </div>
       <div className="drift-status">
         {drift.overall_psi !== null && drift.overall_psi !== undefined && (
           <span className="mono" style={{ fontSize: 'var(--text-small)', color: 'var(--ink-soft)' }}>
-            max PSI {drift.overall_psi.toFixed(3)} · n={drift.sample_size}
+            {t('batch.maxPsi', { psi: drift.overall_psi.toFixed(3), n: drift.sample_size })}
           </span>
         )}
         {(drift.overall_status === 'warning' || drift.overall_status === 'drift') && (
           <Button variant="primary" icon={RefreshCw} onClick={onRetrain} disabled={retraining}>
-            {retraining ? 'Retraining…' : 'Retrain model'}
+            {retraining ? t('batch.retraining') : t('batch.retrain')}
           </Button>
         )}
       </div>
       {retrainMessage && <p className="drift-note">{retrainMessage}</p>}
-      <p className="drift-note">
-        PSI vs. training distribution per feature. Thresholds: &lt;0.1 stable · 0.1–0.25 warning · &gt;0.25 drift (bias-corrected for sample size).
-      </p>
+      <p className="drift-note">{t('batch.driftNote')}</p>
       {rows.length > 0 && (
         <div className="drift-rows">
           {rows.map((r) => (
@@ -60,6 +59,7 @@ function DriftReport({ drift, retraining, onRetrain, retrainMessage }) {
 }
 
 export default function BatchPage() {
+  const { t } = useTranslation()
   const { log } = useLog()
   const [file, setFile] = useState(null)
   const [results, setResults] = useState(null)
@@ -77,7 +77,11 @@ export default function BatchPage() {
     if (driftLogged.current === key) return
     driftLogged.current = key
     if (d.overall_status === 'warning' || d.overall_status === 'drift') {
-      log(`DRIFT — ${source} · ${d.overall_status} · max PSI ${d.overall_psi?.toFixed(3)}`, 'bad', 'DRIFT')
+      log(
+        t('log.drift', { source, status: d.overall_status, psi: d.overall_psi?.toFixed(3) }),
+        'bad',
+        t('stamps.drift'),
+      )
     }
   }
 
@@ -86,7 +90,7 @@ export default function BatchPage() {
       .then((d) => {
         const effective = d.overall_status === 'no_data' ? null : d
         setDrift(effective)
-        logDrift(effective, 'training reference')
+        logDrift(effective, t('batch.trainingRef'))
       })
       .catch(() => {})
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -101,15 +105,11 @@ export default function BatchPage() {
       setResults(res.results)
       setDrift(res.drift || null)
       const errs = res.results.filter((r) => r.error).length
-      log(
-        `BATCH — ${res.results.length} applicant(s) scored · ${errs} error(s)`,
-        errs ? 'warn' : 'ok',
-        'BATCH',
-      )
+      log(t('log.batch', { count: res.results.length, errors: errs }), errs ? 'warn' : 'ok', t('stamps.batch'))
       logDrift(res.drift, file.name)
     } catch (e) {
       setError(e.message)
-      log(`BATCH FAILED — ${e.message}`, 'bad', 'ERROR')
+      log(t('log.batchFailed', { message: e.message }), 'bad', t('stamps.error'))
     } finally {
       setLoading(false)
     }
@@ -120,11 +120,11 @@ export default function BatchPage() {
     setRetrainMessage(null)
     try {
       await api.retrain()
-      setRetrainMessage('Retraining started — progress is recorded on the Settings folio.')
-      log('RETRAIN — started (drift response)', 'ink', 'RETRAIN')
+      setRetrainMessage(t('batch.retrainStarted'))
+      log(t('log.retrainStarted', { source: ` (${t('batch.title')})` }), 'ink', t('stamps.retrain'))
     } catch (e) {
-      setRetrainMessage(`Could not start retraining: ${e.message}`)
-      log(`RETRAIN FAILED — ${e.message}`, 'bad', 'ERROR')
+      setRetrainMessage(t('batch.retrainFailed', { message: e.message }))
+      log(t('log.retrainFailed', { message: e.message }), 'bad', t('stamps.error'))
     } finally {
       setRetraining(false)
     }
@@ -134,20 +134,19 @@ export default function BatchPage() {
     <div>
       <section className="sheet-section">
         <div className="section-head">
-          <h2 className="section-title"><Layers size={18} />Batch Scoring</h2>
-          <span className="section-note">CSV or XLSX · same columns as training data</span>
+          <h2 className="section-title"><Layers size={18} />{t('batch.title')}</h2>
+          <span className="section-note">{t('batch.note')}</span>
         </div>
         <p style={{ color: 'var(--ink-soft)', fontSize: 'var(--text-small)', marginTop: 0 }}>
-          Upload a portfolio and every applicant is scored in one pass.
-          An optional <code>applicant_id</code> column is used as the identifier.
+          <Trans i18nKey="batch.desc" components={[<code />]} />
         </p>
 
         <div className="upload-zone" onClick={() => fileInputRef.current.click()}>
           <UploadCloud size={32} strokeWidth={1.5} />
           <div style={{ fontWeight: 700, color: 'var(--ink)' }}>
-            {file ? file.name : 'Click to choose a file'}
+            {file ? file.name : t('batch.chooseFile')}
           </div>
-          <div className="mono" style={{ fontSize: 'var(--text-label)' }}>CSV or XLSX</div>
+          <div className="mono" style={{ fontSize: 'var(--text-label)' }}>{t('batch.fileTypes')}</div>
         </div>
         <input
           ref={fileInputRef}
@@ -158,7 +157,7 @@ export default function BatchPage() {
         />
 
         <Button variant="primary" icon={Play} onClick={handleUpload} disabled={!file || loading}>
-          {loading ? 'Scoring…' : 'Score Applicants'}
+          {loading ? t('batch.scoring') : t('batch.score')}
         </Button>
         {error && <p className="error-text">{error}</p>}
       </section>
@@ -168,14 +167,15 @@ export default function BatchPage() {
         retraining={retraining}
         onRetrain={handleRetrain}
         retrainMessage={retrainMessage}
+        t={t}
       />
 
       {!results && !loading && (
         <section className="sheet-section">
           <EmptyState
             icon={UploadCloud}
-            title="No batch on record"
-            description="Score a whole portfolio at once — results and drift land in the log."
+            title={t('batch.emptyTitle')}
+            description={t('batch.emptyDesc')}
           />
         </section>
       )}
@@ -183,14 +183,14 @@ export default function BatchPage() {
       {results && (
         <section className="sheet-section">
           <div className="section-head">
-            <h2 className="section-title">{results.length} applicant(s) scored</h2>
-            <Stamp tone="ok">Recorded</Stamp>
+            <h2 className="section-title">{t('batch.scoredHead', { count: results.length })}</h2>
+            <Stamp tone="ok">{t('stamps.recorded')}</Stamp>
           </div>
           <div className="table-wrap">
             <table className="ruled-table">
               <thead>
                 <tr>
-                  <th>ID</th><th>Default Prob.</th><th>Grade</th><th>Decision</th><th>Error</th>
+                  <th>{t('batch.thId')}</th><th>{t('batch.thProb')}</th><th>{t('batch.thGrade')}</th><th>{t('batch.thDecision')}</th><th>{t('batch.thError')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -201,7 +201,7 @@ export default function BatchPage() {
                     <td style={{ fontWeight: 700 }}>{r.risk_grade || '—'}</td>
                     <td>
                       {r.decision && (
-                        <Pill variant={DECISION_VARIANTS[r.decision]}>{r.decision.replaceAll('_', ' ')}</Pill>
+                        <Pill variant={DECISION_VARIANTS[r.decision]}>{t(`decision.${r.decision}`)}</Pill>
                       )}
                     </td>
                     <td className="error-text">{r.error || ''}</td>

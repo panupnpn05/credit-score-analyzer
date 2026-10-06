@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useTranslation, Trans } from 'react-i18next'
 import {
   Save, CheckCircle2, FlaskConical, Award, ListChecks, Hash, SlidersHorizontal,
   Gavel,
 } from 'lucide-react'
 import { api } from '../api/client.js'
+import { prettyField } from '../lib/labels.js'
 import Button from '../components/Button.jsx'
 import Field from '../components/Field.jsx'
-import Pill from '../components/Pill.jsx'
 import Stamp from '../components/Stamp.jsx'
 import { SkeletonLines } from '../components/Skeleton.jsx'
 import { useLog } from '../log/LogContext.jsx'
@@ -39,7 +40,7 @@ function PointsInput({ value, onChange }) {
 }
 
 /** Table row cells for a field-grouped table: renders the field cell once per group. */
-function GroupedRows({ rows, fieldOf, cells }) {
+function GroupedRows({ rows, fieldOf, cells, t }) {
   return rows.map((row, i) => {
     const prevField = i > 0 ? fieldOf(rows[i - 1]) : null
     const field = fieldOf(row)
@@ -48,7 +49,7 @@ function GroupedRows({ rows, fieldOf, cells }) {
         {field !== prevField && (
           <td rowSpan={rows.filter((r) => fieldOf(r) === field).length}
             style={{ fontWeight: 600, whiteSpace: 'nowrap' }}>
-            {field}
+            {prettyField(field, t)}
           </td>
         )}
         {cells(row, i)}
@@ -58,6 +59,7 @@ function GroupedRows({ rows, fieldOf, cells }) {
 }
 
 export default function SopPage() {
+  const { t } = useTranslation()
   const { log } = useLog()
   const [sop, setSop] = useState(null)
   const [saved, setSaved] = useState(false)
@@ -91,10 +93,10 @@ export default function SopPage() {
       const savedSop = await api.putSop(sop)
       setSop(savedSop)
       setSaved(true)
-      log('SOP — manual guideline recorded to docs/SCORING_SOP.md', 'ok', 'SAVED')
+      log(t('log.sopSaved'), 'ok', t('stamps.saved'))
     } catch (e) {
       setError(e.message)
-      log(`SOP SAVE FAILED — ${e.message}`, 'bad', 'ERROR')
+      log(t('log.sopSaveFailed', { message: e.message }), 'bad', t('stamps.error'))
     }
   }
 
@@ -105,7 +107,7 @@ export default function SopPage() {
     try {
       applicant = JSON.parse(verifyText)
     } catch {
-      setVerifyError('Invalid JSON — paste a JSON object with the applicant fields.')
+      setVerifyError(t('sop.invalidJson'))
       return
     }
     setVerifying(true)
@@ -114,12 +116,17 @@ export default function SopPage() {
       setVerifyResult(res)
       const agree = res.manual && res.model && !res.model.error && res.manual.decision === res.model.decision
       const modelTxt = res.model.error
-        ? `model error`
+        ? t('sop.xgboostModel')
         : `${(res.model.default_probability * 100).toFixed(1)}% (${res.model.grade})`
       log(
-        `SOP CHECK — manual ${Number(res.manual.total).toFixed(1)} (${res.manual.grade}) vs ${modelTxt} · ${agree ? 'agree' : 'disagree'}`,
+        t('log.sopCheck', {
+          manual: Number(res.manual.total).toFixed(1),
+          manualGrade: res.manual.grade,
+          modelText: modelTxt,
+          verdict: agree ? t('stamps.agree') : t('stamps.differ'),
+        }),
         agree ? 'ok' : 'warn',
-        agree ? 'AGREE' : 'DIFFER',
+        agree ? t('stamps.agree') : t('stamps.differ'),
       )
     } catch (e) {
       setVerifyError(e.message)
@@ -131,7 +138,7 @@ export default function SopPage() {
   if (!sop) {
     return (
       <section className="sheet-section">
-        <div className="section-head"><h2 className="section-title">SOP Editor</h2></div>
+        <div className="section-head"><h2 className="section-title">SOP</h2></div>
         <SkeletonLines n={8} />
       </section>
     )
@@ -144,15 +151,14 @@ export default function SopPage() {
     <div>
       <section className="sheet-section">
         <div className="section-head">
-          <h2 className="section-title"><SlidersHorizontal size={18} />Scoring Parameters</h2>
-          <span className="section-note">the model is not changed by these tables</span>
+          <h2 className="section-title"><SlidersHorizontal size={18} />{t('sop.paramsTitle')}</h2>
+          <span className="section-note">{t('sop.paramsNote')}</span>
         </div>
         <p style={{ color: 'var(--ink-soft)', fontSize: 'var(--text-small)', marginTop: 0 }}>
-          Manual policy from <code>docs/SCORING_SOP.md</code> — a human-usable cross-check beside the XGBoost model.
-          Empty points count as 0; Appendix A of the SOP shows model-derived weights as a reference.
+          <Trans i18nKey="sop.paramsDesc" components={[<code />]} />
         </p>
         <div className="form-grid">
-          <Field label="Base score" hint="total = base score + sum of all field points">
+          <Field label={t('sop.baseScore')} hint={t('sop.baseScoreHint')}>
             <input type="number" step="any" value={sop.base_score}
               onChange={(e) => { setSop((s) => ({ ...s, base_score: Number(e.target.value) })); setSaved(false) }} />
           </Field>
@@ -161,23 +167,24 @@ export default function SopPage() {
 
       <section className="sheet-section">
         <div className="section-head">
-          <h2 className="section-title"><ListChecks size={18} />Categorical Points</h2>
+          <h2 className="section-title"><ListChecks size={18} />{t('sop.catTitle')}</h2>
         </div>
         <div className="table-wrap">
           <table className="ruled-table sop-table">
             <thead>
-              <tr><th>Field</th><th>Value</th><th>Points</th></tr>
+              <tr><th>{t('predict.thField')}</th><th>{t('predict.thValue')}</th><th>{t('predict.thPoints')}</th></tr>
             </thead>
             <tbody>
               <GroupedRows
                 rows={catGroups}
                 fieldOf={(r) => r.field}
+                t={t}
                 cells={(row, idx) => (
                   <>
                     <td>
                       {row.value}
                       {row.baseline && (
-                        <span className="sop-baseline" title="Model baseline (reference) category"> *</span>
+                        <span className="sop-baseline" title={t('sop.baselineTitle')}> *</span>
                       )}
                     </td>
                     <td>
@@ -191,23 +198,24 @@ export default function SopPage() {
           </table>
         </div>
         {catGroups.length === 0 && (
-          <p className="drift-note">No categorical fields in the current training schema — this table stays empty until one exists.</p>
+          <p className="drift-note">{t('sop.catEmpty')}</p>
         )}
       </section>
 
       <section className="sheet-section">
         <div className="section-head">
-          <h2 className="section-title"><Hash size={18} />Numeric Band Points</h2>
+          <h2 className="section-title"><Hash size={18} />{t('sop.numericTitle')}</h2>
         </div>
         <div className="table-wrap">
           <table className="ruled-table sop-table">
             <thead>
-              <tr><th>Field</th><th>Band</th><th>Points</th></tr>
+              <tr><th>{t('predict.thField')}</th><th>{t('sop.thBand')}</th><th>{t('predict.thPoints')}</th></tr>
             </thead>
             <tbody>
               <GroupedRows
                 rows={sop.numeric}
                 fieldOf={(r) => r.field}
+                t={t}
                 cells={(row, idx) => (
                   <>
                     <td className="mono">{row.band}</td>
@@ -225,12 +233,12 @@ export default function SopPage() {
 
       <section className="sheet-section">
         <div className="section-head">
-          <h2 className="section-title"><Award size={18} />Grade Cutoffs</h2>
+          <h2 className="section-title"><Award size={18} />{t('sop.cutoffsTitle')}</h2>
         </div>
         <div className="table-wrap">
           <table className="ruled-table">
             <thead>
-              <tr><th>Grade</th><th>Min score</th><th>Max score</th></tr>
+              <tr><th>{t('batch.thGrade')}</th><th>{t('sop.thMin')}</th><th>{t('sop.thMax')}</th></tr>
             </thead>
             <tbody>
               {sop.grades.map((g, idx) => (
@@ -251,12 +259,12 @@ export default function SopPage() {
 
       <section className="sheet-section">
         <div className="section-head">
-          <h2 className="section-title"><Gavel size={18} />Decision Policy</h2>
+          <h2 className="section-title"><Gavel size={18} />{t('sop.policyTitle')}</h2>
         </div>
         <div className="table-wrap">
           <table className="ruled-table">
             <thead>
-              <tr><th>Grade</th><th>Decision</th></tr>
+              <tr><th>{t('batch.thGrade')}</th><th>{t('sop.thDecision')}</th></tr>
             </thead>
             <tbody>
               {sop.decision.map((d, idx) => (
@@ -264,7 +272,7 @@ export default function SopPage() {
                   <td style={{ fontWeight: 700 }}>{d.grade}</td>
                   <td>
                     <select value={d.decision} onChange={(e) => updateRow('decision', idx, { decision: e.target.value })}>
-                      {DECISION_OPTIONS.map((o) => <option key={o} value={o}>{o.replaceAll('_', ' ')}</option>)}
+                      {DECISION_OPTIONS.map((o) => <option key={o} value={o}>{t(`decision.${o}`)}</option>)}
                       {!DECISION_OPTIONS.includes(d.decision) && <option value={d.decision}>{d.decision}</option>}
                     </select>
                   </td>
@@ -277,18 +285,17 @@ export default function SopPage() {
 
       <section className="sheet-section">
         <div className="section-head">
-          <h2 className="section-title"><FlaskConical size={18} />Test Applicant — Verify Against Model</h2>
+          <h2 className="section-title"><FlaskConical size={18} />{t('sop.verifyTitle')}</h2>
         </div>
         <p style={{ color: 'var(--ink-soft)', fontSize: 'var(--text-small)', marginTop: 0 }}>
-          Paste an applicant as JSON and compare the manual SOP score with the XGBoost model —
-          same as <code>python scripts/verify_sop.py</code>.
+          <Trans i18nKey="sop.verifyDesc" components={[<code />]} />
         </p>
         <div style={{ display: 'flex', gap: 'var(--space-2)', marginBottom: 'var(--space-2)', flexWrap: 'wrap' }}>
           <Button variant="ghost" onClick={() => setVerifyText(JSON.stringify(DEMO_APPLICANT, null, 2))}>
-            Load demo applicant
+            {t('sop.loadDemo')}
           </Button>
           <Button variant="primary" icon={FlaskConical} onClick={verify} disabled={verifying || !verifyText.trim()}>
-            {verifying ? 'Verifying…' : 'Verify'}
+            {verifying ? t('sop.verifying') : t('sop.verify')}
           </Button>
         </div>
         <textarea
@@ -308,41 +315,43 @@ export default function SopPage() {
           <div style={{ marginTop: 'var(--space-3)' }}>
             <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap', alignItems: 'center' }}>
               <div className="sop-result-box">
-                <div className="sop-result-label">Manual SOP</div>
+                <div className="sop-result-label">{t('sop.manualSop')}</div>
                 <div className="sop-result-value">{Number(manual.total).toFixed(1)}</div>
-                <div className="sop-result-sub">Grade {manual.grade} → {manual.decision.replaceAll('_', ' ')}</div>
+                <div className="sop-result-sub">
+                  {t('sop.gradeToDecision', { grade: manual.grade, decision: t(`decision.${manual.decision}`) })}
+                </div>
               </div>
               <div className="sop-result-box">
-                <div className="sop-result-label">XGBoost model</div>
+                <div className="sop-result-label">{t('sop.xgboostModel')}</div>
                 <div className="sop-result-value">
                   {model.error ? '—' : `${(model.default_probability * 100).toFixed(1)}%`}
                 </div>
                 <div className="sop-result-sub">
-                  {model.error ? model.error : `Grade ${model.grade} → ${model.decision.replaceAll('_', ' ')}`}
+                  {model.error ? model.error : t('sop.gradeToDecision', { grade: model.grade, decision: t(`decision.${model.decision}`) })}
                 </div>
               </div>
               {!model.error && (
                 agree
-                  ? <Stamp tone="ok">Decisions agree</Stamp>
-                  : <Stamp tone="warn">Decisions differ</Stamp>
+                  ? <Stamp tone="ok">{t('sop.agreeStamp')}</Stamp>
+                  : <Stamp tone="warn">{t('sop.differStamp')}</Stamp>
               )}
             </div>
 
             {manual.warnings.length > 0 && (
               <p style={{ fontSize: 'var(--text-label)', color: 'var(--warn)', margin: 'var(--space-2) 0 0' }}>
-                {manual.warnings.length} warning(s): fields with no points assigned count as 0.
+                {t('sop.warnings', { count: manual.warnings.length })}
               </p>
             )}
 
             <div className="table-wrap" style={{ marginTop: 'var(--space-2)' }}>
               <table className="ruled-table">
                 <thead>
-                  <tr><th>Field</th><th>Value</th><th>Points</th></tr>
+                  <tr><th>{t('predict.thField')}</th><th>{t('predict.thValue')}</th><th>{t('predict.thPoints')}</th></tr>
                 </thead>
                 <tbody>
                   {manual.details.map((d, i) => (
                     <tr key={i}>
-                      <td>{d.field}</td>
+                      <td>{prettyField(d.field, t)}</td>
                       <td className="mono">{d.value}</td>
                       <td className="mono" style={{ textAlign: 'right' }}>{Number(d.points).toFixed(1)}</td>
                     </tr>
@@ -355,10 +364,10 @@ export default function SopPage() {
       </section>
 
       <div className="signoff-bar">
-        <Button variant="primary" icon={Save} onClick={save}>Record SOP</Button>
+        <Button variant="primary" icon={Save} onClick={save}>{t('sop.record')}</Button>
         {saved && (
           <span className="saved-note">
-            <CheckCircle2 size={16} />Saved — docs/SCORING_SOP.md updated
+            <CheckCircle2 size={16} />{t('sop.savedNote')}
           </span>
         )}
         {error && <span className="error-text">{error}</span>}

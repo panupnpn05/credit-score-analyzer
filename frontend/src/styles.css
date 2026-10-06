@@ -70,6 +70,30 @@ code, pre, .mono { font-family: var(--font-mono); }
 .masthead-meta .folio { color: var(--ink); font-weight: 700; }
 .masthead-meta .folio .folio-num { color: var(--stamp); }
 
+/* Language toggle */
+.lang-toggle {
+  display: inline-flex;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.lang-btn {
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 9px;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.lang-btn + .lang-btn { border-left: 1px solid var(--rule-strong); }
+.lang-btn:hover { color: var(--ink); }
+.lang-btn.active { background: var(--ink); color: var(--sheet); }
+.lang-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--sheet), 0 0 0 4px var(--stamp); }
+
 /* ---------- The book: rail + sheet ---------- */
 .book {
   flex: 1;
@@ -687,8 +711,7 @@ input[type="range"]::-moz-range-thumb {
   white-space: pre-wrap;
   margin-top: var(--space-2);
 }
-.prompt-slab::before {
-  content: 'LLM PROMPT — COPY & PASTE';
+.prompt-label {
   display: block;
   font-size: 0.5625rem;
   letter-spacing: 0.14em;

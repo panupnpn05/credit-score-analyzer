@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { SlidersHorizontal, Bot, Cpu, Save, RefreshCw, CheckCircle2, PenLine } from 'lucide-react'
 import { api } from '../api/client.js'
 import Button from '../components/Button.jsx'
@@ -19,6 +20,7 @@ const XGB_FIELDS = [
 ]
 
 export default function SettingsPage() {
+  const { t } = useTranslation()
   const { log, operator, setOperator } = useLog()
   const [settings, setSettings] = useState(null)
   const [metrics, setMetrics] = useState(null)
@@ -49,10 +51,10 @@ export default function SettingsPage() {
       const merged = await api.putSettings(settings)
       setSettings(merged)
       setSaved(true)
-      log('SETTINGS — thresholds, LLM and model parameters recorded', 'ok', 'SAVED')
+      log(t('log.settingsSaved'), 'ok', t('stamps.saved'))
     } catch (e) {
       setError(e.message)
-      log(`SETTINGS SAVE FAILED — ${e.message}`, 'bad', 'ERROR')
+      log(t('log.settingsSaveFailed', { message: e.message }), 'bad', t('stamps.error'))
     }
   }
 
@@ -63,14 +65,14 @@ export default function SettingsPage() {
       await api.retrain()
       setRetrainStatus({ running: true, message: 'Starting…', error: null })
       wasRunning.current = true
-      log('RETRAIN — started with current settings', 'ink', 'RETRAIN')
+      log(t('log.retrainStarted', { source: '' }), 'ink', t('stamps.retrain'))
       pollRef.current = setInterval(async () => {
         const st = await api.retrainStatus()
         setRetrainStatus(st)
         if (!st.running) {
           clearInterval(pollRef.current)
           if (wasRunning.current) {
-            log(`RETRAIN — finished · ${st.message || 'model artifacts replaced'}`, st.error ? 'bad' : 'ok', st.error ? 'ERROR' : 'DONE')
+            log(t('log.retrainDone', { message: st.message || t('settings.saved') }), st.error ? 'bad' : 'ok', st.error ? t('stamps.error') : t('stamps.done'))
             wasRunning.current = false
           }
           const m = await api.metrics().catch(() => null)
@@ -79,14 +81,14 @@ export default function SettingsPage() {
       }, 2000)
     } catch (e) {
       setError(e.message)
-      log(`RETRAIN FAILED — ${e.message}`, 'bad', 'ERROR')
+      log(t('log.retrainFailed', { message: e.message }), 'bad', t('stamps.error'))
     }
   }
 
   if (!settings) {
     return (
       <section className="sheet-section">
-        <div className="section-head"><h2 className="section-title">Settings</h2></div>
+        <div className="section-head"><h2 className="section-title">{t('nav.settings')}</h2></div>
         <SkeletonLines n={8} />
       </section>
     )
@@ -100,11 +102,11 @@ export default function SettingsPage() {
     <div>
       <section className="sheet-section">
         <div className="section-head">
-          <h2 className="section-title"><PenLine size={18} />Record Keeper</h2>
-          <span className="section-note">initials are written into every log entry</span>
+          <h2 className="section-title"><PenLine size={18} />{t('settings.keeperTitle')}</h2>
+          <span className="section-note">{t('settings.keeperNote')}</span>
         </div>
         <div className="form-grid">
-          <Field label="Operator initials" hint="up to 4 letters, e.g. PN">
+          <Field label={t('settings.initials')} hint={t('settings.initialsHint')}>
             <input
               type="text"
               value={operator}
@@ -115,84 +117,83 @@ export default function SettingsPage() {
           </Field>
         </div>
         {operator
-          ? <Stamp tone="ok">INITIALS SET — {operator}</Stamp>
-          : <p className="drift-note">Blank for now — entries carry no initials until a record keeper is named.</p>}
+          ? <Stamp tone="ok">{t('stamps.initialsSet', { operator })}</Stamp>
+          : <p className="drift-note">{t('settings.keeperBlank')}</p>}
       </section>
 
       <section className="sheet-section">
         <div className="section-head">
-          <h2 className="section-title"><SlidersHorizontal size={18} />Decision Thresholds</h2>
-          <span className="section-note">mockup loan decision from predicted probability</span>
+          <h2 className="section-title"><SlidersHorizontal size={18} />{t('settings.thresholdsTitle')}</h2>
+          <span className="section-note">{t('settings.thresholdsNote')}</span>
         </div>
-        <Field label={`Approve below — ${d.approve_threshold.toFixed(2)}`}>
+        <Field label={t('settings.approveBelow', { value: d.approve_threshold.toFixed(2) })}>
           <input type="range" min="0" max="1" step="0.01" value={d.approve_threshold}
             onChange={(e) => update('decision', 'approve_threshold', Number(e.target.value))} />
         </Field>
-        <Field label={`Non-approve above — ${d.decline_threshold.toFixed(2)}`}>
+        <Field label={t('settings.declineAbove', { value: d.decline_threshold.toFixed(2) })}>
           <input type="range" min="0" max="1" step="0.01" value={d.decline_threshold}
             onChange={(e) => update('decision', 'decline_threshold', Number(e.target.value))} />
         </Field>
         <p className="mono" style={{ fontSize: 'var(--text-label)', color: 'var(--ink-faint)' }}>
-          &lt; {d.approve_threshold.toFixed(2)} → Approve · &gt; {d.decline_threshold.toFixed(2)} → Non-approve · between → Manual review
+          {t('settings.thresholdLegend', { approve: d.approve_threshold.toFixed(2), decline: d.decline_threshold.toFixed(2) })}
         </p>
       </section>
 
       <section className="sheet-section">
         <div className="section-head">
-          <h2 className="section-title"><Bot size={18} />LLM Settings</h2>
-          <span className="section-note">memos are generated locally — nothing leaves this machine</span>
+          <h2 className="section-title"><Bot size={18} />{t('settings.llmTitle')}</h2>
+          <span className="section-note">{t('settings.llmNote')}</span>
         </div>
         <div className="checkbox-row" style={{ marginBottom: 'var(--space-2)' }}>
           <input id="llm-enabled" type="checkbox" checked={llm.enabled}
             onChange={(e) => update('llm', 'enabled', e.target.checked)} />
-          <label htmlFor="llm-enabled">Enable Ollama memo generation</label>
+          <label htmlFor="llm-enabled">{t('settings.enableLlm')}</label>
         </div>
         <div className="checkbox-row" style={{ marginBottom: 'var(--space-2)' }}>
           <input id="llm-include-sop" type="checkbox" checked={llm.include_sop !== false}
             onChange={(e) => update('llm', 'include_sop', e.target.checked)} />
           <label htmlFor="llm-include-sop">
-            Include SOP guideline in memo prompt
+            {t('settings.includeSop')}
             <span style={{ color: 'var(--ink-faint)', fontSize: 'var(--text-label)', display: 'block' }}>
-              appends the manual scoring SOP rules + this applicant's point breakdown — the LLM uses them as its judging guideline
+              {t('settings.includeSopSub')}
             </span>
           </label>
         </div>
         <div className="form-grid">
-          <Field label="Ollama URL">
+          <Field label={t('settings.ollamaUrl')}>
             <input type="text" value={llm.ollama_url} onChange={(e) => update('llm', 'ollama_url', e.target.value)} />
           </Field>
-          <Field label="Model">
+          <Field label={t('settings.model')}>
             {models.models.length > 0 ? (
               <select value={llm.model} onChange={(e) => update('llm', 'model', e.target.value)}>
                 {models.models.map((m) => <option key={m} value={m}>{m}</option>)}
               </select>
             ) : (
               <input type="text" value={llm.model} onChange={(e) => update('llm', 'model', e.target.value)}
-                placeholder="qwen2.5:7b" />
+                placeholder={t('settings.modelPlaceholder')} />
             )}
           </Field>
         </div>
         {models.error && (
           <p style={{ fontSize: 'var(--text-label)', color: 'var(--ink-faint)' }}>
-            Ollama not reachable — type the model name manually.
+            {t('settings.ollamaUnreachable')}
           </p>
         )}
         <div className="form-grid">
-          <Field label="Max tokens (num_predict)" hint="cap memo length — lower is faster">
+          <Field label={t('settings.maxTokens')} hint={t('settings.maxTokensHint')}>
             <input type="number" min={16} max={4096} step={1} value={llm.num_predict}
               onChange={(e) => update('llm', 'num_predict', Number(e.target.value))} />
           </Field>
-          <Field label="Temperature" hint="0 = deterministic">
+          <Field label={t('settings.temperature')} hint={t('settings.temperatureHint')}>
             <input type="number" min={0} max={2} step={0.1} value={llm.temperature}
               onChange={(e) => update('llm', 'temperature', Number(e.target.value))} />
           </Field>
-          <Field label="Keep-alive" hint="how long Ollama keeps the model loaded, e.g. 10m, -1">
+          <Field label={t('settings.keepAlive')} hint={t('settings.keepAliveHint')}>
             <input type="text" value={llm.keep_alive}
               onChange={(e) => update('llm', 'keep_alive', e.target.value)} />
           </Field>
         </div>
-        <Field label="Prompt Template"
-          hint="placeholders: {applicant_id} {probability} {grade} {applicant_summary} {risk_factors} {protective_factors}">
+        <Field label={t('settings.promptTemplate')} hint={t('settings.promptTemplateHint')}>
           <textarea rows={12} value={llm.prompt_template}
             onChange={(e) => update('llm', 'prompt_template', e.target.value)} />
         </Field>
@@ -200,7 +201,7 @@ export default function SettingsPage() {
 
       <section className="sheet-section">
         <div className="section-head">
-          <h2 className="section-title"><Cpu size={18} />Model Fine-Tune — XGBoost</h2>
+          <h2 className="section-title"><Cpu size={18} />{t('settings.xgbTitle')}</h2>
         </div>
         <div className="form-grid">
           {XGB_FIELDS.map(([key, min, max, step]) => (
@@ -217,12 +218,12 @@ export default function SettingsPage() {
               fontSize: 'var(--text-label)', letterSpacing: '0.1em', textTransform: 'uppercase',
               color: 'var(--ink-soft)', marginBottom: 'var(--space-1)',
             }}>
-              Current model metrics
+              {t('settings.metricsLabel')}
             </h4>
             <div className="table-wrap">
               <table className="ruled-table">
                 <thead>
-                  <tr><th></th><th>AUC</th><th>Gini</th><th>KS</th><th>F1</th></tr>
+                  <tr><th></th><th>{t('settings.thAuc')}</th><th>{t('settings.thGini')}</th><th>{t('settings.thKs')}</th><th>{t('settings.thF1')}</th></tr>
                 </thead>
                 <tbody>
                   {['validation', 'test'].map((split) => (
@@ -241,13 +242,13 @@ export default function SettingsPage() {
         ) : (
           <EmptyState
             icon={Cpu}
-            title="No metrics"
-            description="Train the model to see evaluation metrics."
+            title={t('settings.noMetricsTitle')}
+            description={t('settings.noMetricsDesc')}
           />
         )}
 
         <Button variant="primary" icon={RefreshCw} onClick={startRetrain} disabled={retrainStatus?.running}>
-          {retrainStatus?.running ? 'Retraining…' : 'Save & Retrain Model'}
+          {retrainStatus?.running ? t('batch.retraining') : t('settings.saveRetrain')}
         </Button>
         {retrainStatus && (
           <div className="retrain-status">
@@ -259,8 +260,8 @@ export default function SettingsPage() {
       </section>
 
       <div className="signoff-bar">
-        <Button variant="primary" icon={Save} onClick={save}>Record Settings</Button>
-        {saved && <span className="saved-note"><CheckCircle2 size={16} />Saved</span>}
+        <Button variant="primary" icon={Save} onClick={save}>{t('settings.recordSettings')}</Button>
+        {saved && <span className="saved-note"><CheckCircle2 size={16} />{t('settings.saved')}</span>}
         {error && <span className="error-text">{error}</span>}
       </div>
     </div>

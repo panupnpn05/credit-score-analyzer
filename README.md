@@ -207,6 +207,8 @@ The backend serves the built app from `frontend/dist` at http://localhost:8000.
 | **SOP** | Edit the manual points guideline (`docs/SCORING_SOP.md`) and verify applicants against the model |
 | **Settings** | Approve/decline probability thresholds, Ollama URL + model dropdown (auto-lists installed models), prompt template editor with placeholders, XGBoost hyperparameters, current model metrics, and **Save & Retrain** with live status |
 
+The UI is bilingual — switch between English and Thai from the toggle in the header (choice is remembered in the browser).
+
 Settings persist to `settings.json` in the project root. `OLLAMA_URL` / `OLLAMA_MODEL` environment variables override the stored LLM connection (used by Docker Compose).
 
 ## Demo mode (graceful degradation)
